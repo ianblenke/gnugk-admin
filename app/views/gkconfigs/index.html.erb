@@ -1,0 +1,85 @@
+<!-- div id="gkconfigs"></div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.no_javascript').hide();
+    window.router = new Gnugk.Routers.GkconfigsRouter({gkconfigs: <%= @gkconfigs.to_json.html_safe -%>});
+    Backbone.history.start();
+  });
+</script>
+
+<div class="no_javascript"-->
+<%- model_class = Gkconfig.new.class -%>
+<h1><%=t '.title', :default => 'Configuration' %></h1>
+<div class="accordion" id="sections">
+<% @gksections.each do |gksection| %>
+  <% section_keys=sect=nil %>
+  <% sect=$GNUGK_DOCS[gksection.name] %>
+  <% section_keys=sect['keys'] if sect %>
+  <% current_keys = gksection.gkconfigs.map { |m| m.key } %>
+  <% remaining_keys=section_keys.keys - current_keys if section_keys %>
+  <% remaining_keys=[] if ! section_keys %>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#sections" href="#section_<%= gksection.id %>"><%= gksection.name %></a>
+  </div>
+  <div id="section_<%= gksection.id %>" class="accordion-body collapse">
+    <div class="accordion-inner">
+      <table class="table table-striped">
+        <tbody>
+    <%   gksection.gkconfigs.each do |gkconfig| %>
+    <%     docs=rel=description=title=keys=nil %>
+    <%     docs=section_keys[gkconfig.key] if section_keys %>
+    <%     description=docs['Description'] if docs %>
+    <%     rel='popover' if description %>
+    <%     title=gkconfig.key %>
+          <tr>
+            <td><a href="#" title="<%= title %>" rel="<%= rel %>" data-content="<%= description %>"><%= gkconfig.key %></a></td>
+            <td><%= gkconfig.value %></td>
+            <td>
+              <% if ! gkconfig.static_config? %>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_gkconfig_path(gkconfig), :class => 'btn btn-mini' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          gkconfig_path(gkconfig),
+                          :method => :delete,
+                          :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                          :class => 'btn btn-mini btn-danger' %>
+            </td>
+            <%   end %>
+          </tr>
+    <%   end %>
+        </tbody>
+      </table>
+    </div>
+    <%= form_for Gkconfig.new, html: { id: "form_#{gksection.name}" , class: 'form-horizontal' } do |f| %>
+    <input name="gksection_id" type="hidden" value="<%= gksection.id %>" />
+    <table class="table table-striped">
+      <tbody>
+        <tr><td>
+        <%= f.label :key, :class => 'control-label' %><br />
+           <% if sect && sect['RigidKeys'] %>
+             <%= select( "gkconfig", "key", remaining_keys.sort, { include_blank:'None' }, { onChange: "alert('HI');" } ) %>
+           <% else %>
+             <input name='key' type="text" class="span3 text_field" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source='<%= remaining_keys.sort.to_json %>'>
+           <% end %>
+        </td><td>
+	<%= f.label :value, :class => 'control-label' %><br />
+	<%= f.text_field :value, { :class => 'text_field', :id => 'value_'+gksection.name } %>
+        </td><td>
+        <%= f.submit 'Add', :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+           gkconfigs_path, :class => 'btn' %>
+        </td><tr>
+      </tbody>
+    </table>
+    <%  end %>
+  </div>
+</div>
+<% end %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_gkconfig_path,
+            :class => 'btn btn-primary' %>
+<!--/div-->
+

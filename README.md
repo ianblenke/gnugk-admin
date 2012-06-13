@@ -5,7 +5,7 @@ GnuGK Admin
 
 ## Install dependencies:
 
-NOTE: Chef-solo configuration recipes are underway to automate these steps.
+NOTE: Chef-solo configuration recipes are underway to automate these steps (using vagrant)
 
 RVM is available here: http://beginrescueend.com/
 
@@ -21,20 +21,29 @@ Now, install Ruby 1.9.3 using RVM:
 If you are reading this README on github, clone the github-admin project locally:
 
     $ git clone https://github.com/ianblenke/github-admin.git
-    $ cd github-admin/chef/
+    $ cd github-admin
+
+To customize your installation, copy the example static config.yml and database.yml:
+
+    $ cp config/config.yml.example config/config.yml
+    $ cp config/database.yml.example config/database.yml
 
 If you do not trust the .rvmrc, you can always run the command in the .rvmrc yourself:
 
-    $ rvm use 1.9.3-p194@gnugk_vagrant --create
+    $ rvm use 1.9.3-p194@gnugk-admin --create
 
 Next, you need to install the bundler gem:
 
     $ gem install bundler
     $ rvm reload
 
-Ok, now that we have RVM and bundler installed, you can now easily install Vagrant and Veewee:
+Ok, now that we have RVM and bundler installed, install the rest of the dependencies:
 
     $ bundle install
+
+The event database uses mongodb, so we install it first:
+
+    $ sudo apt-get install mongodb
 
 Next, we install PostgreSQL:
 
@@ -63,4 +72,10 @@ Run the gnugk statusport follower
 
     $ script/statusport_follower.rb
 
+## Todo:
+
+- Add authentication to gnugk-admin (promise!)
+- Fixup mongodb full-text search to be faster
+- Define upstart scripts to respawn things as need be
+- Finish the chef deployment recipes (test in vagrant)
 

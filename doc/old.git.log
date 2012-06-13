@@ -1,0 +1,325 @@
+commit 7a3c459c88fb505ca1eded6edb692c6ed079245e
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:59:53 2012 -0400
+
+    Import users_solo version 1.0.2
+
+commit 0b8aa898f7e462bb9d029c1b0eaef42173cddee8
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:59:44 2012 -0400
+
+    Import solo_data_bags version 0.0.4
+
+commit 75998a7fbfbb8faf33cfda7736f7b4958025bd78
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:59:31 2012 -0400
+
+    Cleanup
+
+commit 6a25a5006b263524952a8dd6e41c3dfeb531baf8
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:16:53 2012 -0400
+
+    Import ohai version 1.0.2
+
+commit 8a46e47ca916f1ed2469781f2f65679342451440
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:16:52 2012 -0400
+
+    Import bluepill version 1.0.4
+
+commit 623280439bcc4fd0f0706cb41a4452abf38322c0
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:16:48 2012 -0400
+
+    Import nginx version 0.101.2
+
+commit 7e58aca677c1f068515be7bf812bfe66a06e4069
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:07:35 2012 -0400
+
+    Import apt version 1.4.2
+
+commit a3952f4611c9e4e0335ad8f0981bd7aef39bdfeb
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:07:34 2012 -0400
+
+    Import ubuntu version 0.99.0
+
+commit 3f378c1bddf5818394706a5617b1724310c0cd2d
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:07:19 2012 -0400
+
+    Import postgresql version 0.99.4
+
+commit cadc3737ee704ed1726a0c0e25e0344e09362911
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:49 2012 -0400
+
+    Import chef_handler version 1.0.6
+
+commit bbaabf1d3afe0daad84662ba14a2736fd4df6d3c
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:48 2012 -0400
+
+    Import windows version 1.3.0
+
+commit fefec561bbb914674c41d392f85518e8c2a7689b
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:47 2012 -0400
+
+    Import openssl version 1.0.0
+
+commit f2323b41056f11a80d705465d9918bfe59159aa7
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:46 2012 -0400
+
+    Import mysql version 1.2.6
+
+commit 680c2b9cffa4d71054ddd3750dd18a1847130816
+Merge: 532c03f 52b15cb
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:45 2012 -0400
+
+    Merge branch 'chef-vendor-xml'
+
+commit 52b15cb5f33b14671280cfb13166384ef77b191e
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:45 2012 -0400
+
+    Import xml version 1.0.2
+
+commit 532c03f2af541a546adbed55b21830f3df272935
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:28 2012 -0400
+
+    Import application_ruby version 1.0.0
+
+commit 36505678d15d31452690ececef657adbc23f3e34
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:06:01 2012 -0400
+
+    Import php version 1.0.2
+
+commit d8d072cc7f20f8988baf6b798b3b7a713b5b8cab
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:58 2012 -0400
+
+    Import gunicorn version 1.0.0
+
+commit bfd77ebe1fe2cdb4ae05a966d134d75c51877fdd
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:55 2012 -0400
+
+    Import python version 1.0.6
+
+commit e65e2cf7d57aaac0a0decd42370e5189114b1bb2
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:55 2012 -0400
+
+    Import java version 1.5.0
+
+commit bae2b8bc7089abc2463f6b383b4c1a93a389d0ae
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:54 2012 -0400
+
+    Import tomcat version 0.10.4
+
+commit 91304d0d13f142cc9a71931dfa40069f43ac7735
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:53 2012 -0400
+
+    Import build-essential version 1.0.2
+
+commit bae2d0b25441692af00889685a4ddfac63e785e1
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:51 2012 -0400
+
+    Import passenger_apache2 version 0.99.4
+
+commit 8bdb78583ea31afd58b4503261806eafb2f34cb7
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:50 2012 -0400
+
+    Import apache2 version 1.1.8
+
+commit b867c54ad6859a8ce5e4477c815e38fcf0906aaf
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:48 2012 -0400
+
+    Import unicorn version 1.0.0
+
+commit 297abc3651546b1e82699eea89caa177d012ae7b
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:47 2012 -0400
+
+    Import runit version 0.15.0
+
+commit d2de4be241de20c0e096a9e29b2c5863c1166979
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:46 2012 -0400
+
+    Import application version 1.0.0
+
+commit eb9fd4e500f9c4fa4387fdb3acd1ba87e34fd89a
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:44 2012 -0400
+
+    Import application_nginx version 1.0.0
+
+commit 26096cc22ca8040b4c741ed16b34b2cf17b39d07
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:30 2012 -0400
+
+    Working in vagrant and chef-solo
+
+commit c54b8e592cf941963203259982c47d3cf784bae8
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 22:05:09 2012 -0400
+
+    Working in vagrant and chef-solo
+
+commit 28d69e5ae21ba13d55fd270ac155e00ab812c3b1
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri Jun 1 14:12:19 2012 -0400
+
+    Updating .gitignore
+
+commit 16c284d80b5c020c945509eadabd232c83cb5aa2
+Author: Ian Blenke <ian@blenke.com>
+Date:   Thu May 31 15:08:09 2012 -0400
+
+    Baby steps
+
+commit e84093835592963677ff78d52af83e1e30d55a66
+Author: Ian Blenke <ian@blenke.com>
+Date:   Mon May 21 00:26:02 2012 -0400
+
+    Have full text searching working on eventlogs
+
+commit bb3946e90021a7dfba74bf5f03b269ce5509e31b
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri May 18 18:28:28 2012 -0400
+
+    More madness
+
+commit b318dd0b926bff60920441a5839690b61ab9f347
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri May 18 18:27:09 2012 -0400
+
+    Ignore symlinks to gnugk and gnugk.ini
+
+commit 506ca83a9c6a029d7f1c883b1476da2945a36222
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri May 18 16:59:30 2012 -0400
+
+    Beginnings of a log follower
+
+commit 0f6313044c84f82c346a92b5417e70b8842152be
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri May 18 16:58:22 2012 -0400
+
+    Beginnings of a log follower
+
+commit 3c7e4ba3dbcc5e979f0eed4c3fb6ecbf05520cb6
+Author: Ian Blenke <ian@blenke.com>
+Date:   Fri May 18 16:58:13 2012 -0400
+
+    Beginnings of a log follower
+
+commit 2cd3655c2d137a9bf56e85b2f0a59a554977e3af
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 16 23:20:12 2012 -0400
+
+    Added the stored procedure migrations, the initial follower script that dumps the running config and sends Faye messages, with initial config, and postgres setup. Big untested steps here
+
+commit 5e695b65cecc91335d517b6e805444daf549d3a6
+Author: Ian Blenke <ian@blenke.com>
+Date:   Thu May 10 22:08:07 2012 -0400
+
+    Adding underscore-rails, twitter-bootstrap-rails, and rails g bootstrap:install
+
+commit 7f134e4a6253e9c294213f5636b5aa71d0d84cc5
+Author: Ian Blenke <ian@blenke.com>
+Date:   Thu May 10 22:04:00 2012 -0400
+
+    underscore-rails
+
+commit cb6772205e3b15d41d5ab19440157b8c9e07be6a
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:34:01 2012 -0400
+
+    Adding no_javascript checks
+
+commit 837f1b9e656258fe047f7ea0dbfbd88961418518
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:24:40 2012 -0400
+
+    users div tg, not posts
+
+commit 1b8e7905d7a83535625b79aa79d70510371b4ff9
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:23:57 2012 -0400
+
+    Initialize Backbone correctly
+
+commit 624f7826df226f1336d69797644f093b26b3684f
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:22:15 2012 -0400
+
+    Users, not Posts
+
+commit 2ec8ae41269b351a45ec6584a08d25859ad32b9a
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:20:41 2012 -0400
+
+    Added: gem "thin"
+
+commit 92f45b4b39b126b7968f199dddc7b9ce00b7b1b0
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:20:15 2012 -0400
+
+    Added backbone crud
+
+commit 36ad893704cf4e97e76a159e158e0d83cd295813
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:18:50 2012 -0400
+
+    rails g backbone:scaffold User username:string password:string firstname:string lastname:string
+
+commit a3cd36723ffb20cc053859e27b74a7ff361dc895
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:18:02 2012 -0400
+
+    Added rvmrc
+
+commit ad4227f51cd230fa48b8db57eb55eedf0466e0f3
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:17:44 2012 -0400
+
+    bundle exec rake db:migrate
+
+commit 0911c9c2c5dcd98eb71f98087b4afd1413c173bb
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:17:10 2012 -0400
+
+    rails g scaffold User username:string password:string firstname:string lastname:string
+
+commit 08a0a3c2be52b212fe0b6d1aace96a3dae4c121d
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:15:41 2012 -0400
+
+    bundle install
+    rails g backbone:install
+
+commit ba7d53965bcd10fa73ad2a1749f695620aaf7c62
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:15:19 2012 -0400
+
+    Added: gem "rails-backbone"
+
+commit 752fb2f867da146e6f61d9470084c5fd63bcfdc0
+Author: Ian Blenke <ian@blenke.com>
+Date:   Wed May 9 23:14:39 2012 -0400
+
+    rails new gnugk

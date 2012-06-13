@@ -1,0 +1,422 @@
+Gatekeeper::Main:
+  Name: gkmain
+  Link: http://www.gnugk.org/gnugk-manual-4.html#gkmain 
+  Chapter: 4.5
+  RigidKeys: true
+  keys:
+    Fortytwo:
+      Default: 42
+      Description: 'This needs to be 42 for this configuration to be deemed valid by gnugk'
+    Name:
+      Default: OpenH323GK
+      Description: 'Gatekeeper identifier of this gatekeeper. The gatekeeper will only respond to GRQs for this ID and will use it in a number of messages to its endpoints.'
+    EnableIPv6:
+      Default: 0
+      Description: 'If GnuGk has been compiled with IPv6 support, you can use this switch to turn it on.'
+    Home:
+      Default: '*'
+      Description: 'The gatekeeper will listen for requests on this IP address. If not set, the gatekeeper will listen on all IPs of your host. Multiple Home addresses can be used and must be separated with a semicolon (;) or comma (,).'
+    NetworkInterfaces:
+      Default: N/A
+      Description: 'Specify the network interfaces of the gatekeeper. By default the gatekeeper will automatically detect the interfaces of your host, so this setting is not usually required, but is available if automatic detection fails.  If you are using GnuGk behind a NAT box then you should use the ExternalIP setting (described below) which will automatically configure GnuGk to operate as if it was on the NAT box.  The ExternalIP setting will take precedence and will override this value. <P> <B>NOTE:</B> If this setting is changed, you must restart the gatekeeper.  A reload from the status port will not cause this value to be re-read.'
+    Bind:
+      Default: N/A
+      Description: 'Specify the IP address for default routing. Use this to specify which default IP address to use in a multihomed virtual environment where there may be many virtual interfaces on one host.'
+    EndpointIDSuffix:
+      Default: _endp
+      Description: 'The gatekeeper will assign a unique identifier to each registered endpoint. This option can be used to specify a suffix to append to the endpoint identifier. This is only useful when using more than one gatekeeper. <B>This setting does not change when the config is reloaded!</B> '
+    EnableTTLRestrictions:    
+      Name: ttl
+      Link: 'http://www.gnugk.org/gnugk-manual-4.html#ttl'
+      Default: 1
+      Description: 'The default TimeToLive (TTL) configured via the "TimeToLive" parameter does not apply to endpoints which use the H.460.17 and H.460.18 protocols to traverse a firewall.  In order to keep the firewall pinhole open the TimeToLive for those endpoints defaults to 19 seconds. The "TimeToLive" parameter would allow you to change this to as low as 5 seconds, and as high as 30 seconds.  <P>If you know for sure that there is no need for a keep-alive, you can disable these restrictions by setting this switch to 0. If TTL restrictions are disabled, the TimeToLive becomes a global setting for all endpoints, including H.460.17 and H.460.18.'
+    CompareAliasType:
+      Default: 1
+      Description: 'By default, a H323ID of "1234" will not match E164 number "1234" when comparing aliases. This parameter allows you to ignore the alias type when performing comparisons.'
+    CompareAliasCase:
+      Default: 1
+      Description: 'By default, alias "jan" will not match alias "Jan".  If set to false, the comparison will not be case sensitive.'
+    TraceLevel:
+      Default: 0
+      Description: 'Set trace level (same as -t on the command line).'
+    TotalBandwidth:
+      Default: -1
+      Description: 'Total bandwidth available for all endpoints in units of 100 bits per second (eg. 5120 means 512 kbps).  By default this feature is off (-1).  <P><B>NOTE:</B> At this time, the GnuGk only checks calls to and from registered endpoints.'
+    MinimumBandwidthPerCall:
+      Default: -1
+      Description: 'Raise bandwidth requests from endpoints to at least this value in units of 100 bits per second.  The value includes both directions, so a 384 kbps call would have a value of 7680.  Setting a minimum is useful when endpoints do not report correct values (eg. Netmeeting).  If set to zero or less, no minimum is enforced (default).  <P><B>NOTE:</B> At this time, the GnuGk only checks calls to and from registered endpoints.'
+    MaximumBandwidthPerCall:
+      Default: -1
+      Description: 'Set maximum bandwidth allowed for a single call in units of 100 bits per second.  If set to zero or less, no maximum is enforced (default).  <P><B>NOTE:</B> At this time, the GnuGk only checks calls to and from registered endpoints.'
+    RedirectGK:
+      Default: N/A
+      Description: 'This option allow you to redirect endpoints to alternate gatekeepers if the gatekeeper becomes overloaded.  In the example above, the gatekeeper will reject a RRQ if the number of registered endpoints would exceed 100, or reject an ARQ if concurrent calls exceed 50.  <P>Furthermore, you may explicitly redirect all endpoints by setting this option to <CODE>temporary</CODE> or <CODE>permanent</CODE>.  The gatekeeper will send a RAS rejection message with a list of alternate gatekeepers defined in <CODE>AlternateGKs</CODE>.  Note that a <CODE>permanent</CODE> redirection means that the redirected endpoints will not register with this gatekeeper again.  <B>NOTE:</B>  The redirect capability will only function with H.323 version 4 compliant endpoints.'
+    AlternateGKs:
+      Name: alternategks
+      Link: http://www.gnugk.org/gnugk-manual-4.html#alternategks
+      Default: N/A
+      Description: 'The primary gatekeeper includes a field in the RCF to inform endpoints which alternate IP and gatekeeper identifier to use.  <P>The alternate gatekeeper needs to be aware of all registrations on the primary gatekeeper or else it would reject calls.  Our gatekeeper can forward every RRQ to an alternate IP address.  <P>The AlternateGKs config option specifies the fields contained in the primary gatekeeper RCF. The first and second fields of this string define where (IP, port) to forward to.  The third tells endpoints whether they need to register with the alternate gatekeeper before placing calls. They usually do not because we forward their RRQs, so they are automatically known to the alternate gatekeeper.  The fourth field specifies the priority for this gatekeeper.  Lower is better; usually the primary gatekeeper is considered to have priority 1.  The last field specifies the alternate gatekeeper identifier.  <P>You may specify multiple alternate gatekeepers as a comma separated list.  <P>This global definition can be overriden by a per IP specification in <A HREF="http://www.gnugk.org/gnugk-manual-7.html#rassrvalternategatekeeper">[RasSrv::AlternateGatekeeper]</A>.  <P><B>NOTE:</B> In older versions of GnuGk, the fields were separated by colons.  Since version 2.3.3 this is deprecated and you must change your configurations to use semicolons.'
+    SendTo:
+      Default: N/A
+      Description: 'Although this information is contained in AlternateGKs, you must still specify which address to forward RRQs to. This might differ from AlternateGK address due to multihomed systems, so it is a separate config option.  <P>You can specify multiple gatekeepers in a comma separated list.'
+    SkipForwards:
+      Default: N/A
+      Description: 'To avoid circular forwarding, you should not forward RRQs you get from the other gatekeeper (this statement is true for both primary and alternate gatekeeper).  Two mechanisms are used to identify whether a request should be forwarded.  The first one looks for a flag in the RRQ. Since few endpoints implement this, we can increase the overall reliability of the system by specifying it here.  <P>Specify the other gatekeeper IP in this list.'
+    StatusPort:
+      Default: 7000
+      Description: 'Status port to monitor the gatekeeper.  See <A HREF="http://www.gnugk.org/gnugk-manual-13.html#monitor">this section</A> for details.'
+    StatusTraceLevel:
+      Default: 2
+      Description: 'Default output trace level for new status interface clients. See <A HREF="http://www.gnugk.org/gnugk-manual-13.html#monitor">this section</A> for details.'
+    SshStatusPort:
+      Default: 0
+      Description: 'Use the SSH protocol for the status port. User passwords can be set in the <A HREF="http://www.gnugk.org/gnugk-manual-4.html#gkstatusauth">[GkStatus::Auth]</A> section.'
+    TimestampFormat:
+      Default: Cisco
+      Description: 'This setting configures the default format of timestamp strings generated by the gatekeeper.  This option affects <A HREF="http://www.gnugk.org/gnugk-manual-9.html#sqlacct">[SQLAcct]</A>, <A HREF="http://www.gnugk.org/gnugk-manual-9.html#radacct">[RadAcct]</A>, <A HREF="http://www.gnugk.org/gnugk-manual-9.html#fileacct">[FileAcct]</A> and other modules, but not <A HREF="http://www.gnugk.org/gnugk-manual-12.html#calltable">[CallTable]</A>.  You can further customize timestamp formatting per module by configuring the <CODE>TimestampFormat</CODE> setting in the module-specific configuration portion of the config file.  <P>There are four predefined formats: <UL> <LI><CODE>RFC822</CODE> - a default format used by the gatekeeper (example: Wed, 10 Nov 2004 16:02:01 +0100)</LI> <LI><CODE>ISO8601</CODE> - standard ISO format (example: 2004-11-10 T 16:02:01 +0100)</LI> <LI><CODE>Cisco</CODE> - format used by Cisco equipment (example: 16:02:01.534 CET Wed Nov 10 2004)</LI> <LI><CODE>MySQL</CODE> - simple format that MySQL can understand (example: 2004-11-10 16:02:01)</LI> </UL> <P>If none of the predefined options is suitable, you can build your own format string using rules from the <CODE>strftime</CODE> C function (see man strftime or search MSDN for strftime).  In general, the format string consists of regular character and format codes, preceded by a percent sign. Example: "%Y-%m-%d and percent %%" will result in "2004-11-10 and percent %".  Some common format codes: <UL> <LI><CODE>%a</CODE> - abbreviated weekday name</LI> <LI><CODE>%A</CODE> - full weekday name</LI> <LI><CODE>%b</CODE> - abbreviated month name</LI> <LI><CODE>%B</CODE> - full month name</LI> <LI><CODE>%d</CODE> - day of month as decimal number</LI> <LI><CODE>%H</CODE> - hour in 24-hour format</LI> <LI><CODE>%I</CODE> - hour in 12-hour format</LI> <LI><CODE>%m</CODE> - month as decimal number</LI> <LI><CODE>%M</CODE> - minute as decimal number</LI> <LI><CODE>%S</CODE> - second as decimal number</LI> <LI><CODE>%y</CODE> - year without century</LI> <LI><CODE>%Y</CODE> - year with century</LI> <LI><CODE>%u</CODE> - microseconds as decimal number (<B>this is a GnuGk extension</B>)</LI> <LI><CODE>%z</CODE> - time zone abbreviation (+0100)</LI> <LI><CODE>%Z</CODE> - time zone name</LI> <LI><CODE>%%</CODE> - percent sign</LI> </UL>'
+    EncryptAllPassword:
+      Default: 0
+      Description: 'Enable encryption of all passwords in the config (SQL passwords, RADIUS passwords, [Password] passwords, [GkStatus::Auth] passwords). If enabled, all passwords must be encrypted using the <CODE>addpasswd</CODE> utility. Otherwise only [Password] and [GkStatus::Auth] passwords are encrypted (old behavior).'
+    KeyFilled:
+      Default: N/A
+      Description: 'Define a global padding byte to be used during password encryption/decryption.  It can be overridden by setting <CODE>KeyFilled</CODE> within a particular config section.  Usually, you do not need to change this option.'
+    UseBroadcastListener:
+      Default: 1
+      Description: 'Defines whether to listen to broadcast RAS requests. This requires binding to all interfaces on a machine, so if you want to run multiple gatekeepers on the same machine you should turn this off.'
+    UnicastRasPort:
+      Default: 1719
+      Description: 'The RAS channel TSAP identifier for unicast.'
+    UseMulticastListener:
+      Default: 1
+      Description: 'Enable or disable gatekeeper discovery using multicast. By default it is enabled.'
+    MulticastPort:
+      Default: 1718
+      Description: 'The RAS channel TSAP identifier for multicast.'
+    MulticastGroup:
+      Default: 224.0.1.41
+      Description: 'The multicast group for the RAS channel.'
+    EndpointSignalPort:
+      Default: 1720
+      Description: 'Default port for call signaling channel of endpoints. Used when searching for endpoints in the registration table when the actual call signaling port is unknown.'
+    ListenQueueLength:
+      Default: 1024
+      Description: 'Queue length for incoming TCP connection.'
+    StatusWriteTimeout:
+      Default: 5000
+      Description: 'Time in milliseconds for write timeout on status channel.'
+    ExternalIP:
+      Default: N/A
+      Description: 'When using GnuGk behind a NAT you can set the external IP address that you wish the gatekeeper to masquerade as. This will allow external endpoints and other gatekeepers to contact the NATed gatekeeper. To work you must enable proxy-mode and port forward the required ports to the gatekeeper IP or put the gatekeeper in the NAT box DMZ. This is different than the bind setting, which specifies a physical IP address on the GnuGk box.  <P>You may specify an IP address or a fully-qualified domain name (FQDN).  If you use a FQDN and <CODE>ExternalIsDynamic</CODE> is set to false, it will be resolved to an IP address on startup or configuration reload.  If <CODE>ExternalIsDynamic</CODE> is set to true, the name will be stored and resolved when needed.'
+    ExternalIsDynamic:
+      Default: 0
+      Description: 'Configures the GnuGk to support an external dynamic address.  If enabled, GnuGk will ensure that the Dynamic DNS (DDNS) service receives keep-alive messages to maintain your DDNS name lease.  You must also configure the <CODE>ExternalIP</CODE> setting with a DNS address maintained by a DDNS service such as www.dyndns.com or www.no-ip.com.'
+    DefaultDomain:
+      Default: N/A
+      Description: 'If the GnuGk receives a request for an address in the format <B>user@domain.com</B>, this option will strip the domain from the address if it matches the <CODE>DefaultDomain</CODE> setting and will then process the request using just the "<B>user</B>" field.  This is useful when receiving interdomain calls placed via SRV routing policy where the full URI is received.  It can also be used in conjunction with the [RasSrv::RewriteAlias] section to convert the received URI into a E164 number for further processing and routing.'
+    Authenticators:
+      Default: N/A
+      Description: 'Selects the specific authenticators to use when authenticating endpoints. The default options are: H.235.1 (HMAC SHA1 /  old H235AnnexD), MD5 (Digest Authentication) and CAT (Cisco Access Tokens ie RADIUS).  If this setting is omitted, all authenticators are loaded by default.  If you are using plugin authenticators, then you may want to disable the default authenticators to provide optimum security.  Note: H.235.1 requires OpenSSL support compiled into GnuGk. <B>This switch is only available if GnuGk is compiled with H323Plus.</B>'
+    DisconnectCallsOnShutdown:
+      Default: 1
+      Description: 'GnuGk will disconnect all ongoing calls when it shuts down and will send an unregistration request to all endpoints.  To override this default, set this parameter to "0".  This switch is intended mainly for gatekeepers running in direct mode; in routed mode and proxy mode calls will still get disrupted when the gatekeeper shuts down.'
+    MaxASNArraySize:
+      Default: 128
+      Description: 'EXPERIMENTAL: Sets the maximum number of elements in an ASN encoded array, eg. the max. number of aliases in a list.  PTLib up to 2.10.1 defaults to 128 elements. Beware of hitting the limits of other vendors if you increase this setting.'
+GkStatus::Auth:
+  Name: gkstatusauth
+  Description: 'Defines a number of rules regarding who is allowed to connect to the status port.  Access to the status port provides full control over your gatekeeper. Ensure that this is set correctly.'
+  Link: 'http://www.gnugk.org/gnugk-manual-4.html#gkstatusauth'
+  Chapter: 4.6
+  RigidKeys: false
+  keys:
+    rule:
+      Default: forbid
+      Description: 'Possible values are <UL> <LI><CODE>forbid</CODE> - disallow any connection.</LI> <LI><CODE>allow</CODE> - allow any connection</LI> <LI><CODE>explicit</CODE> - reads the parameter <CODE>ip=value</CODE> where <CODE>ip</CODE> is the IP address of the client, <CODE>value</CODE> is <CODE>1,0</CODE> or <CODE>allow,forbid</CODE> or <CODE>yes,no</CODE>.  If <CODE>ip</CODE> is not listed the parameter <CODE>default</CODE> is used.</LI> <LI><CODE>regex</CODE> - the IP of the client is matched against the given regular expression.  <P> <DL> <DT><B>Example:</B><DD><P>To allow client from 195.71.129.0/24 and 195.71.131.0/24: <BLOCKQUOTE> <CODE>regex=^195\.71\.(129|131)\.[0-9]+$</CODE> </BLOCKQUOTE> </DL> </LI> <LI><CODE>password</CODE> - the user must provide an appropriate username and password to login. The format of username/password is the same as <A HREF=\"gnugk-manual-8.html#password\">[SimplePasswordAuth]</A> section.  </LI> </UL> <P>These rules may be combined with "|" (to specify a logical \"OR\") or \"&amp;\" (for logical \"AND\"). For example, <UL> <LI><CODE>rule=explicit | regex</CODE><BR> The IP of the client must match <CODE>explicit</CODE> <B>or</B> <CODE>regex</CODE> rule.  <P> </LI> <LI><CODE>rule=regex &amp; password</CODE><BR> The IP of the client must match <CODE>regex</CODE> rule, <B>and</B> the user has to login by username and password.</LI> </UL> <P>Using the SSH protocol for the status port implies that all users are authenticated by password.'
+    regex:
+      Default: N/A
+      Description: 'Only used when <CODE>rule=regex</CODE>'
+    default:
+      Default: forbid
+      Description: 'Only used when <CODE>rule=explicit</CODE>'
+    DSAKey:
+      Default: ssh_host_dsa_key
+      Description: 'Path for the file containing the DSA host key. (only used for SSH)'
+    RSAKey:
+      Default: ssh_host_rsa_key
+      Description: 'Path for the file containing the RSA host key. (only used for SSH)'
+    Shutdown:
+      Default: allow
+      Description: 'To allow the gatekeeper to be shutdown via status port.'
+    DelayReject:
+      Default: 0
+      Description: 'Time (in seconds) to wait before rejecting an invalid username/password.  Useful to insert a delay in brute-force attacks.'
+RoutedMode:
+  Name: routed
+  Link: 'http://www.gnugk.org/gnugk-manual-5.html#routed'
+  RigidKeys: true
+  Chapter: 5.1
+  Description: 'Call signaling messages may be passed in two ways: The first method is Direct Endpoint Call Signaling, where call signaling messages are passed directly between the endpoints.  The second method is Gatekeeper Routed Call Signaling. With this method, the call signaling messages are routed through the gatekeeper.  <P>When Gatekeeper Routed call signaling is used, there are three different options for routing of the H.245 control channel and media channels.  <P> <DL> <DT><B>Case I.</B><DD><P>The gatekeeper does not route them.  The H.245 control channel and media channels are established directly between the endpoints.  <DT><B>Case II.</B><DD><P>The H.245 control channel is routed through the gatekeeper, while the media channels are established directly between the endpoints.  <DT><B>Case III.</B><DD><P>The gatekeeper routes the H.245 control channel, as well as all media channels, including RTP/RTCP for audio and video, and T.120 channel for data. In this case, no traffic is passed directly between the endpoints. This is usually called a H.323 Proxy, and can be treated as a H.323-H.323 gateway.  </DL> <P>This section defines the gatekeeper routed mode options (case I &amp; II).  The proxy feature is defined in the <A HREF="http://www.gnugk.org/gnugk-manual-5.html#proxy">[Proxy] section</A>.  <P>The settings in this section may be updated by reloading the configuration while the gatekeeper is running.'
+  keys:
+    GKRouted:
+      Default: 0
+      Description: Enables gatekeeper routed signaling mode.
+    H245Routed:
+      Default: 0
+      Description: 'Enables routing of the H.245 control channel through the gatekeeper.  This setting is honored if <CODE>GKRouted=1</CODE> and H.245 tunneling is disabled for a call. Even when this option is disabled, if Proxy or ProxyForNAT takes effect, a H.245 channel is always routed through the gatekeeper for calls being proxied.'
+    CallSignalPort:
+      Default: 1721
+      Description: 'The port for call signaling on the gatekeeper.  The default port is <CODE>1721</CODE>. We do not use the well-known port <CODE>1720</CODE> by default so you can run an H.323 endpoint or gateway in the same machine as the gatekeeper.  You may set it to <CODE>0</CODE> to let the gatekeeper choose an arbitrary port.'
+    CallSignalHandlerNumber:
+      Default: 5
+      Description: 'The number of threads dedicated to handle signaling/H.245 channels (between 1-200).  You may increase this number in a heavy loaded gatekeeper. Each thread can process one signaling message at time, so increasing this number will increase call throughput. Under Windows, there exists a default limit of 64 sockets used by a single signaling thread, so each signaling thread is able to handle at most 32 calls (with H.245 tunneling enabled).'
+    RtpHandlerNumber:
+      Default: 1
+      Description: 'The number of RTP proxy handling threads. Increase this value only if you experience problems with RTP delay or jitter on a heavily loaded gatekeeper.  Special care has to be taken on Windows, as RTP handling threads are subject to the same limit of 64 sockets as signaling threads. Each RTP thread is able to handle at most 32 proxied calls (2 sockets per call).'
+    AcceptNeighborsCalls:
+      Default: 1
+      Description: 'With this feature enabled, the call signaling thread will accept calls without a pre-existing CallRec found in the CallTable, provided an endpoint corresponding to the destinationAddress in Setup can be found in the RegistrationTable, and the calling party is a neighbor or parent gatekeeper.  The gatekeeper will also use its own call signaling address in the LCF when responding to the LRQ. Call signaling will be routed to gatekeeper 2 in gatekeeper-to-gatekeeper calls.  As a result, the CDRs in gatekeeper 2 will correctly show the connected time, instead of "unconnected".'
+    AcceptUnregisteredCalls:
+      Default: 0
+      Description: 'With this feature enabled, the gatekeeper will accept calls from any unregistered endpoint.  Make sure you do proper authentication on these calls if you do not want to let everybody use your gatekeeper.  When working with unregistered endpoints, you will probably also want to change the CallSignalPort to 1720.'
+    RemoveH245AddressOnTunneling:
+      Default: 0
+      Description: 'Some endpoints send h245Address in the UUIE of Q.931 even when h245Tunneling is set to TRUE. This may cause interoperability problems. If the option is TRUE, the gatekeeper will remove h245Address when h245Tunneling flag is TRUE. This enforces the remote party to stay in tunneling mode.' 
+    RemoveCallOnDRQ:
+      Default: 1
+      Description: 'With this option disabled, the gatekeeper will not disconnect a call if it receives a DRQ for it. This avoids potential race conditions when a DRQ overtakes a Release Complete.  This is only meaningful in routed mode because in direct mode, the only mechanism to signal end-of-call is a DRQ.  When using call failover this must be set to 0.'
+    DropCallsByReleaseComplete:
+      Default: 0
+      Description: 'According to Recommendation H.323, the gatekeeper could tear down a call by sending RAS DisengageRequest to endpoints.  However, some bad endpoints just ignore this command.  With this option turning on, the gatekeeper will send Q.931 Release Complete instead of RAS DRQ to both endpoints to force them drop the call.'
+    SendReleaseCompleteOnDRQ:
+      Default: 0
+      Description: 'On hangup, the endpoint sends both Release Complete within H.225/Q.931 and DRQ within RAS. It may happen that DRQ is processed first, causing the gatekeeper to close the call signaling channel, thus preventing the Release Complete from being forwarding to the other endpoint.  Though the gatekeeper closes the TCP channel to the destination, some endpoints (e.g. Cisco CallManager) do not drop the call even if the call signaling channel is closed.  This results in phones that keep ringing if the caller hangs up before the called number answers.  Setting this parameter to <CODE>1</CODE> makes the gatekeeper always send Release Complete to both endpoints before closing the call when it receives a DRQ from one of the parties.'
+    SupportNATedEndpoints:
+      Default: 0
+      Description: 'Whether to allow an endpoint behind a NAT box register to the gatekeeper.  If yes, the gatekeeper will translate the IP address in Q.931 and H.245 channel into the IP of NAT box.  <P>GnuGk supports NAT outbound calls (from an endpoint behind NAT to public networks) directly without any necessary modification of endpoints or NAT box. Just register the endpoint with GnuGk and you can make call now. '
+    SupportCallingNATedEndpoints:
+      Default: 1
+      Description: 'Whether to allow an endpoint behind an NAT box that support GnuGk NAT Traversal technique to receive calls. Use this to block errant gateways that do not support GnuGk Nat Traversal technique properly from causing one way audio problems when trying to call to the gateway. Calls to the gateways return caller unreachable.  To be effective SupportNATedEndpoints must be set to 1.'
+    TreatUnregisteredNAT:
+      Default: 0
+      Description: 'Used in conjunction with AcceptUnregisteredCalls and SupportNATedEndpoints will automatically treat all unregistered calls which cannot be determined as being NAT are treated as being NAT.  <P>Not all Endpoints send sourceSignalAddress in the setup message which can be used to determine whether a caller is NAT. This adds support to those that do not.'
+    ScreenDisplayIE:
+      Default: N/A
+      Description: 'Modify the DisplayIE of Q.931 to the specified value.'
+    ScreenCallingPartyNumberIE:
+      Default: N/A
+      Description: 'Modify the CallingPartyNumberIE of Q.931 to the specified value.'
+    ScreenSourceAddress:
+      Default: N/A
+      Description: 'Modify the sourceAddress field of UUIE element from Q.931 Setup message.'
+    ForwardOnFacility:
+      Default: 0
+      Description: 'If yes, on receiving Q.931 Facility with reason <B>callForwarded</B>, <B>routeCallToGatekeeper</B> or <B>routeCallToMC</B>, the gatekeeper will forwards call Setup directly to the forwarded endpoint, instead of passing the message back to the caller.  If you have broken endpoints that can not handle Q.931 Facility with reason <B>callForwarded</B> (or the other reasons), turn on this option. Note that this feature may not always work correctly, as it does not provide any means of capability renegotiation and media channel reopening.  The call is only forwarded if the forwarder is the called party and the H.245 channel is not established, yet.'
+    ShowForwarderNumber:
+      Default: 0
+      Description: 'Whether to rewrite the calling party number to the number of forwarder.  It is usually used for billing purpose.  Only valid if <CODE>ForwardOnFacility=1</CODE>.'
+    Q931PortRange:
+      Default: N/A
+      Description: 'Specify the range of TCP port number for Q.931 signaling channels.  Note the range size may limit the number of concurrent calls.  Make sure this range is wide enough to take into account TIME_WAIT TCP socket timeout before a socket can be reused after closed.  TIME_WAIT may vary from 15 seconds to a few minutes, depending on an OS.  So if for example your range is 2000-2001 and you made two calls, the next two calls can be made after TIME_WAIT timeout elapses and the sockets can be reused.  The same applies to <CODE>H245PortRange</CODE> and <CODE>T120PortRange</CODE>. TIME_WAIT can be usually tuned down on most OSes.'
+    H245PortRange:
+      Default: N/A
+      Description: 'Specify the range of TCP port number for H.245 control channels.  Note the range size may limit the number of concurrent calls.  See remarks about TIME_WAIT socket state timeout in the <CODE>Q931PortRange</CODE> description.' 
+    SetupTimeout:
+      Default: 8000
+      Description: 'A timeout value (in milliseconds) to wait for a first message (Setup) to be received after a signaling TCP channel has been opened.'
+    SignalTimeout:
+      Default: 30000
+      Description: 'A timeout value (in milliseconds) to wait for a signaling channel to be opened after an ACF message is sent or to wait for an Alerting message after a signaling channel has been opened. This option can be thought as a maximum allowed PDD (Post Dial Delay) value.'
+    AlertingTimeout:
+      Default: 180000
+      Description: 'A timeout value (in milliseconds) to wait for a Connect message after a call entered Alerting state. This option can be thought as a maximum "ringing time".'
+    TcpKeepAlive:
+      Default: 0
+      Description: 'Enable/disable keepalive feature on TCP signaling sockets. This can help to detect inactive signaling channels and prevent dead calls from hanging in the call table. For this option to work, you also need to tweak system settings to adjust keep alive timeout. See docs/keepalive.txt for more details.  If this switch is not present in the configuration, the socket is left untouched.'
+    TranslateFacility:
+      Default: 0
+      Description: 'Enable this option if you have interoperability problems between H.323v4 and non-H.323v4 endpoints. It converts Facility messages with reason = transportedInformation into Facility messages with an empty body, because some endpoints do not process tunneled H.245 messages inside Facility, if the body is not empty.  The conversion is performed only when necessary - if both endpoints are v4 or both endpoints are pre-v4, nothing is changed.'
+    SocketCleanupTimeout:
+      Default: 5000
+      Description: 'Define time to wait before an unused socket is closed (if it is not yet closed) and deleted (its memory is released). If you use very small port ranges, like a few ports (e.g. RTPPortRange=2000-2009), you may want to decrease this value to get sockets reusable faster.'
+    ActivateFailover:
+      Default: 0
+      Description: 'Activate call failover: When activated, GnuGk will try to find other possible routes to a destination if the call fails on the first route. The list of routes for a call is built when the call first comes in and currently not all routing policies are able to provide multiple routes.  You can use the "internal" and the "sql" policy to provide multiple routes.  In addition to that multiple routes can be set by SQL and Radius authenticators.  <P>For accounting of calls using failover, see the SingleFailoverCDR switch in the <A HREF="http://www.gnugk.org/gnugk-manual-12.html#calltable">[CallTable]</A> section.'
+    FailoverCauses:
+      Default: '1-15,21-127'
+      Description: 'Define which cause codes in a ReleaseComplete will trigger call failover.'
+    DisableRetryChecks:
+      Default: 0
+      Description: 'This will disable all checks if a failed call has already received FastStart or H.245 messages. Caution: Using this switch enables you to retry more calls, but you run the risk that some of the retried calls will fail because the caller is already in a state where he can not talk to a new partner.'
+    CalledTypeOfNumber:
+      Default: N/A
+      Description: 'Sets Called-Party-Number type of number to the specified value for all calls (0 - UnknownType, 1 - InternationalType, 2 - NationalType, 3 - NetworkSpecificType, 4 - SubscriberType, 6 - AbbreviatedType, 7 - ReservedType).'
+    CallingTypeOfNumber:
+      Default: N/A
+      Description: 'Sets Calling-Party-Number type of number to the specified value for all calls (0 - UnknownType, 1 - InternationalType, 2 - NationalType, 3 - NetworkSpecificType, 4 - SubscriberType, 6 - AbbreviatedType, 7 - ReservedType).'
+    CalledPlanOfNumber:
+      Default: N/A
+      Description: 'Sets Called-Numbering-Plan of number to the specified value (0 - UnknownType, 1 - ISDN, 3 - X.121 numbering, 4 - Telex, 8 - National standard, 9 - private numbering).' 
+    CallingPlanOfNumber:
+      Default: N/A
+      Description: 'Sets Calling-Numbering-Plan of number to the specified value (0 - UnknownType, 1 - ISDN, 3 - X.121 numbering, 4 - Telex, 8 - National standard, 9 - private numbering).' 
+    ENUMservers:
+      Default: N/A
+      Description: 'Sets the enum server list in priority order separated by (,) for the enum policy.  This overrides the PWLIB_ENUM_PATH environmental variable.'
+    RDSservers:
+      Default: N/A
+      Description: 'Use this to specify a RDS server to query for rds routing policy.  This set the domains to use to resolve URI which do not have SRV records and may be virtually hosted or where SRV records are stored in another host.  This overrides the PWLIB_RDS_PATH environmental variable.'
+    CpsLimit:
+      Default: 0
+      Description: 'Limit the rate of incoming calls to n calls per second. If more calls are received they are rejected at the TCP level without H.323 error messages, so they will not show up in CDRs.  A value of zero (default) disables the feature.  <P>The limit only applies if the calls in the check interval are greater than check-interval * CPS-rate. This allows small call spikes on a machine without much load, but will apply strict limits when the overall load is high.  <P>This feature is meant to shield the gatekeeper from overload and to avoid as much resource usage a possible in an overload situation.  <P>Currently the calls are blocked when the first message comes in on the signaling port. This makes it very effective for unregistered calls. However, ARQs are not blocked, so it will be less effective with
+registered calls.'
+    CpsCheckInterval:
+      Default: 5
+      Description: 'Define the check interval in seconds before the CpsLimit is applied.'
+    GenerateCallProceeding:
+      Default: 0
+      Description: 'When set, GnuGk will generate a CallProceeding for each Setup message it receives.  This can be helpful to avoid a timeout in calling endpoints if the destination takes a long time to answer or the call is processed in a virtual queue. Without setting UseProvisionalRespToH245Tunneling=1 this will disable H.245 tunneling.  <P>CallProceeding messages sent by endpoints or gateways will be translated into Facility or Progress messages.'
+    UseProvisionalRespToH245Tunneling:
+      Default: 0
+      Description: 'WARNING: This is an experimental feature and not tested very well.  <P>If you only use H.323 equipment that supports provisionalRespToH245Tunneling, you can set this switch to keep H.245 tunneling enabled when using gatekeeper generated CallProceeding.'
+    EnableH450.2:
+      Default: 0
+      Description: 'When set, GnuGk will intercept H.450.2 call transfer messages and if possible transfer the call on behalf of the endpoint. This allows the endpoint initiated transferring of calls where the remote endpoint may not support H.450 and the gatekeeper initiates the call transfer.'
+    H4502EmulatorTransferMethod:
+      Default: callForwarded
+      Description: 'Set the call transfer method for the H.450.2 emulator.  It defaults to sending a callFordwarded Facility to the endpoint.  Setting it to "Reroute" uses a gatekeeper based TCS=0 transfer. ("Reroute" is still considered and experimental feature, that should be used with care.)'
+    TranslateReceivedQ931Cause:
+      Default: N/A
+      Description: 'Translate all received cause codes in ReleaseComplete messages. In the above example code 17 (User busy) will be translated into cause code 34 (No circuit/channel available).'
+    TranslateSentQ931Cause:
+      Default: N/A
+      Description: 'Translate all cause codes in ReleaseComplete messages sent out.  In the above example code 21 and 27 will be translated into cause code 34, because this particular gateway might deal with error code 34 better than with others.'
+    RemoveH235Call:
+      Default: 0
+      Description: 'For compatibility with endpoints which do not support large Setup messages or if endpoints send incorrect H.235 tokens, this switch removes all clearTokens and cryptoTokens from Setup and Connect messages.  <P>If you turn the feature on with setting the switch to 1, the H.235 tokens will be removed from all calls.  You can also specify a list of networks, the only calls from these networks get the H.235 token removed, eg. RemoveH235Call=192.168.1.0/24, 10.0.1.0/32.'
+    RemoveH460Call:
+      Default: 0
+      Description: 'For compatibility with pre-H323v4 devices that do not support H.460, this switch strips the H.460 feature advertisements from the Setup PDU.  Usually they should be ignored anyway; use this switch if they cause trouble.'
+    ForceNATKeepAlive:
+      Default: 0
+      Description: 'Force ALL registrations to use a keepAlive TCP socket.'
+    EnableH46017:
+      Default: 0
+      Description: 'Enable support for H.460.17. To enable H.460.19 for the media stream, you should also set EnableH46018=1'
+    EnableH46026:
+      Default: 0
+      Description: 'EXPERIMENTAL: Enable support for H.460.26.'
+    EnableH46018:
+      Default: 0
+      Description: 'Enable support for H.460.18 and H.460.19. This feature is covered by patents held by Tandberg.  If you do not use the official releases by the GNU Gatekeeper Project, make sure you have a valid license before enabling it.'
+    H46018NoNat:
+      Default: 1
+      Description: 'Enable H.460.18 even if the endpoint is not behind a NAT. Setting to 0 will disable H.460.18 if the endpoint is detected as not being behind a NAT. If H.460.23 is supported and enabled then direct media is still supported.'
+    EnableH46023:
+      Default: 0
+      Description: 'Enable support for H.460.23/.24. You must also set STUN servers for H.460.23/.24 to become active.'
+    H46023STUN:
+      Default: N/A
+      Description: 'Sets the STUN server list for use with H.460.23 separated by (,). Each Network interface must have a STUNserver set for H.460.23 support on that interface.'
+    H46023PublicIP:
+      Default: 0
+      Description: 'Newer endpoints on public IP addresses can receive calls from endpoints behind NAT. This feature when enabled will presume all endpoints that are not NAT can receive calls from endpoints behind NAT for the purpose of H.460.24 media pathway calculations so to avoid proxying of media. This maybe used in conjunction with AlwaysRewriteSourceCallSignalAddress=0 to trick the remote endpoint to think that the call is coming direct from behind NAT and not routed via the gatekeeper.'
+    H46023SignalGKRouted:
+      Default: 0
+      Description: 'Force all call signaling for NAT to be GK routed. There are a number of conditions where call signaling may be offloaded when using H.460.23/.24 This switch will force all the signaling to be Gatekeeper routed.'
+    NATStdMin:
+      Default: N/A
+      Description: 'Require registering endpoints detected as being behind a NAT to support a Standard NAT Traversal mechanism. When an endpoint registers from behind a NAT and does not support the minimum NAT standard then the registration will be rejected with a reason neededFeatureNotSupported. Valid values are "18" for H.460.18/.19 and "23" for H.460.23/.24'
+    TranslateSorensonSourceInfo:
+      Default: 0
+      Description: 'Translate the non-standard caller information eg. from a Sorenson VP200 into sourceAddress and CallingPartyIE.'
+    RemoveSorensonSourceInfo:
+      Default: 0
+      Description: 'Remove the non-standard caller information eg. from a Sorenson VP200 after translation.'
+    RemoveFaxUDPOptionsFromRM:
+      Default: 0
+      Description: 'An Avaya Communication Manager 3.1 system equipped with TN2602AP media processors becomes confused when it receives t38FaxUdpOptions in t38FaxProfile of H.245 RequestMode.  AddPac VoiceFinder is an example of an application which does this.  At that point, the TN2602AP will begin to send larger T.38 packets than the receiver can process, resulting in facsimile document distortion.  This switch will remove t38FaxUdpOptions from RequestMode, making the combination of Avaya Communication Manager 3.1 equipped and TN2602AP media processors compatible with endpoints which send t38FaxUdpOptions in RM.'
+    AlwaysRewriteSourceCallSignalAddress:
+      Default: 1
+      Description: 'When set to false or 0, GnuGk will not rewrite the sourceCallSignalAddress to its own IP in routed mode. This helps some endpoints to get through NATs.  In proxy mode, the IP is always rewritten to this GnuGk server IP, regardless of this switch.'
+    AutoProxyIPv4ToIPv6Calls:
+      Default: 1
+      Description: 'Automatically put calls between different IP versions into full proxy mode.  Note that this auto detection only looks at the call signal addresses to make the decision.  It is possible that one endpoint decides to use H.245 or media IPs with a different IP version later on and the call will fail if the receiving endpoint is not capable of handling multiple IP versions.'
+    EnableH235HalfCallMedia:
+      Default: 0
+      Description: 'WARNING: This feature is still experimental.  <P>When the endpoint on one side of a call supports encryption and the endpoint on the other side does not, the gatekeeper will act as a "man-in-the-middle" and encrypt the media stream to the encryption-capable system.  A decrypted media stream will be sent to the endpoint which is otherwise unable to encrypt / decrypt traffic because of licensing issues, lack of encryption chip support in the hardware, obsolescence, etc.  This may be useful if the system you are trying to reach is on the Internet; your internal traffic can remain unencrypted, but your external traffic will be secure.  <P>Enabling this feature will force call signaling for all calls to routed-mode, and will set it to proxy-mode for encrypted calls.  <P>When not using RTP multiplexing, the caller and called endpoint must be on different IPs and may not be behind the same NAT. The endpoints also must send RTP from the same IP as their signalling messages.  <P>As of Version 3.x of GnuGk, H.239 and data channels are not suppoorted for encryption.'
+    RequireH235HalfCallMedia:
+      Default: 0
+      Description: 'EXPERIMENTAL: Require at least one leg of the call to be encrypted.  (Terminate the call if both legs are unencrypted.)'
+    EnableH460P:
+      Default: 1
+      Description: 'WARNING: This is an experimental feature to support the not-yet-released H.460 presence standard.'
+Proxy:
+  Name: proxy
+  Link: 'http://www.gnugk.org/gnugk-manual-5.html#proxy'
+  Chapter: 5.2
+  Description: 'The section defines the H.323 proxy features. It means the gatekeeper will route all the traffic between the calling and called endpoints, so there is no traffic between the two endpoints directly. Thus it is very useful if you have some endpoints using private IP behind an NAT box and some endpoints using public IP outside the box.  <P>The gatekeeper can do proxy for logical channels of RTP/RTCP (audio and video) and T.120 (data). Logical channels opened by fast-connect procedures or H.245 tunneling are also supported.  <P>Note to make proxy work, the gatekeeper must have <B>direct connection</B> to both networks of the caller and callee.'
+  keys:
+    Enable:
+      Default: 0
+      Description: 'Whether to enable the proxy function. You have to enable gatekeeper routed mode first (see the <A HREF="http://www.gnugk.org/gnugk-manual-4.html#routed">[RoutedMode] section</A>).  You do not have to specify H.245 routed.  It will automatically be used if required.'
+    InternalNetwork:
+      Default: N/A
+      Description: 'If you want to override automatic detection of networks behind the proxy, you may do so by specifying them here.  Multiple internal networks are allowed.  Packets to internal networks will use the local interface as sender instead of the default IP or ExternalIP.  For internal networks, the proxying can be disabled, even when global proxying is activated. <P> <DL> <DT><B>Format:</B><DD><P><CODE>InternalNetwork=network address/netmask[,network address/netmask,...]</CODE> <P>The netmask can be expressed in decimal dot notation or CIDR notation (prefix length), as shown in the example.  <DT><B>Example:</B><DD><P><CODE>InternalNetwork=10.0.0.0/255.0.0.0,192.168.0.0/24</CODE> </DL>'
+    ProxyAlways:
+      Default: 0
+      Description: 'Always proxy all calls regardless of other settings.'
+    T120PortRange:
+      Default: N/A
+      Description: 'Specify the range of TCP port number for T.120 data channels.  Note the range size may limit the number of concurrent calls.  See remarks about TIME_WAIT socket state timeout in the <CODE>Q931PortRange</CODE> description.'
+    RTPPortRange:
+      Default: 1024-65535
+      Description: 'Specify the range of UDP port number for RTP/RTCP channels. Since RTP streams require two sockets, the range must contain an even number of ports.  Note that the size of the specified range may limit the number of possible concurrent calls.'
+    ProxyForNAT:
+      Default: 1
+      Description: 'If set, the gatekeeper will function as a proxy for calls where one of the participating endpoints is behind a NAT box. This ensures the RTP/RTCP stream can penetrate into the NAT box without modifying it.  However, the endpoint behind the NAT box must use the same port to send and receive RTP/RTCP stream.  If you have bad or broken endpoints that do not satisfy the precondition, you should disable this feature and let the NAT box forward RTP/RTCP stream for you.'
+    ProxyForSameNAT:
+      Default: 1
+      Description: 'Whether to proxy for calls between endpoints from the same NAT box.  There is a degree of uncertainty when endpoints are behind the same NAT as to whether they can communicate directly as one or both may be on subNATs. Disable this feature with caution.'
+    RemoveH235Call:
+      Default: 0
+      Description: 'This setting removes the cryptoTokens and clearTokens from the Setup message.  Use this when working with IP phones that do not support large Setup messages.'
+    RemoveH460Call:
+      Default: 0
+      Description: 'This setting removes the H.460 features from the Setup message. Use this with pre-H.323v4 endpoints and gateways which cannot decode these messages.'
+    DisableRTPQueueing:
+      Default: 1
+      Description: 'Sometimes GnuGk will receive RTP data before it knows where to forward it to.  GnuGk can buffer this data up to a certain amount and send it once the destination becomes available. In some cases this can cause a short loopback of RTP data.'
+    EnableRTPMute:
+      Default: 0
+      Description: 'This setting allows either call party in media proxy mode to mute the audio/video by sending a * as either string or tone.userinput. The sending of * mutes the audio/video and a subsequent send of * unmutes the audio/video. Only the party who muted the call can unmute. This is designed as a hold function for terminals which do not support H450.4.' 
+    EnableRTCPStats:
+      Default: 0
+      Description: 'When enabled, GnuGk will collect RTCP sender reports and send them to the Radius server.'
+    RemoveMCInFastStartTransmitOffer:
+      Default: 0
+      Description: 'Remove the mediaChannel from fastStart transmit offers.  For unicast transmit channels, mediaChannel should not be sent on offer; it is the responsibility of the callee to provide mediaChannel in an answer.'
+    SearchBothSidesOnCLC:
+      Default: 0
+      Description: 'The H.245 CloseLogicalChannel request should only reference the
+endpoints own logical channels.  Some bad endpoint implementations require searching and closing logical channels for the other endpoint as well.  Up to version 2.3.0 GnuGk did this automatically, but it can break channel establishment in some cases, so you must enable this switch if you have these broken endpoints.'
+    H460PActThread:
+      Default: 2
+      Description: 'Sleep time between updating of H.460 Presence information.'
+    RTPMultiplexing:
+      Default: 0
+      Description: 'Enable H.460.19 RTP multiplexing.  <P>NOTE: To change RTP multiplexing settings, including ports, you must restart GnuGk.  A configuration reload will not re-read this configuration item.'
+    RTPMultiplexPort:
+      Default: 3000
+      Description: 'Set the RTP port for H.460.19 RTP multiplexing.'
+    RTCPMultiplexPort:
+      Default: 3001
+      Description: 'Set the RTCP port for H.460.19 RTP multiplexing.'
+    ExplicitRoutes:
+      Default: N/A
+      Description: 'Add explicit routing rules to GnuGks internal routing table.  Rules can have 2 formats: <CODE>sourceIP/mask</CODE> or <CODE>network/mask-sourceIP</CODE>.  The above example would use 10.2.1.5 as sender IP for all messages to the 10.2.0.0/16 network and 10.6.1.3 for messages to the 10.6.0.0/16 network.  Messages to the 11.0.0.0/8 network get 20.1.1.1 as sender IP.  All sender IPs should be included in the list of Home IPs.'
+ModeSelection:
+  Name: modeselection
+  Link: 'http://www.gnugk.org/gnugk-manual-5.html#modeselection'
+  Chapter: 5.3
+  RigidKeys: false
+  Description: 'In routed mode or proxy mode, you may use this section to specify the exact routing mode (routed mode, routed mode plus H.245 routing or proxy mode) on a per-IP network basis.  <P> <DL> <DT><B>Syntax:</B><DD><P><CODE>network=mode[,mode]</CODE> </DL> <P>The network is specified by an IP plus optional CIDR, eg. 192.168.1.0/24.  The rule for the network with the longest netmask is used (the most specific).  <P> <P>Possible modes are (the names are case in-sensitive) <UL> <LI><CODE>ROUTED</CODE><BR> Routed mode where Q.931 messages are routed, but not H.245 messages (unless H.245 tunneling is active).</LI> <LI><CODE>H245ROUTED</CODE><BR> Routed mode plus H.245 routing.</LI> <LI><CODE>PROXY</CODE><BR> Proxy mode with RTP proxying.</LI> </UL> <P>The first mode is used for calls into and out of the specified network.  The second mode is used for calls that stay inside the network.  If only one mode is specified it is used for both cases.  <P> If no rules match the settings then [RoutedMode]GkRouted=, H245Routed= or [Proxy]Enable= are used to determine the routing mode.  <P>There are a few cases where these rules do not apply, because <A HREF="http://www.gnugk.org/">the GNU Gatekeeper</A> knows that the call needs proxying: For example calls involving H.460.18/.19 will always be proxied (because this protocol requires proxying).'

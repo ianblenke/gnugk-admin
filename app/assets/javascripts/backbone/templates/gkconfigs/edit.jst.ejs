@@ -1,0 +1,25 @@
+<h1>Edit gkconfig</h1>
+
+<form id="edit-gkconfig" name="gkconfig" class="form-horizontal">
+  <div class="field">
+    <label for="section" class="control-label"> section:</label>
+    <input type="text" name="section" id="section" value="<%= section %>" class="text_field" >
+  </div>
+
+  <div class="field">
+    <label for="key" class="control-label"> key:</label>
+    <input type="text" name="key" id="key" value="<%= key %>" class="text_field" >
+  </div>
+
+  <div class="field">
+    <label for="value" class="control-label"> value:</label>
+    <input type="text" name="value" id="value" value="<%= value %>" class="text_field" >
+  </div>
+
+  <div class="actions">
+    <input type="submit" value="Update Gkconfig" class="btn btn-primary" />
+  </div>
+
+</form>
+
+<a href="#/index" class="btn">Back</a>

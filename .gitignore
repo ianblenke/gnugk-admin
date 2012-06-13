@@ -17,6 +17,9 @@ Gemfile.lock
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore the generate SQL structure file
+/db/structure.sql
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

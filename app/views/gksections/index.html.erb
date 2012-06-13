@@ -1,0 +1,23 @@
+<h1>Listing gksections</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gksections.each do |gksection| %>
+  <tr>
+    <td><%= gksection.name %></td>
+    <td><%= link_to 'Show', gksection %></td>
+    <td><%= link_to 'Edit', edit_gksection_path(gksection) %></td>
+    <td><%= link_to 'Destroy', gksection, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gksection', new_gksection_path %>

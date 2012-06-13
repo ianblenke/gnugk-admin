@@ -1,0 +1,37 @@
+
+<%= form_tag eventlogs_path, :method => :get, :class => "search" do -%>
+  <p>
+  <%= text_field_tag :q, params[:q], { :placeholder => "Search", :size => "20", :autocomplete => "off" } %>
+  <!-- text_field_tag :q, params[:q], :data => { :provide => 'typeahead', :source => ...} -->
+  <%= submit_tag "Search", :name => "submit_search", :class => "button" %>
+  </p>
+<%- end -%>
+
+<%- model_class = EventLog.new.class -%>
+<h1><%=t '.title', :default => "Event Logs" %></h1>
+
+<%= paginate @eventlogs %>
+
+<div id="eventlogs"></div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.no_javascript').hide();
+    window.router = new Gnugk.Routers.EventlogsRouter({eventlogs: <%= @eventlogs.to_json.html_safe -%>});
+    Backbone.history.start();
+  });
+</script>
+
+<div class="no_javascript">
+<h1><%=t '.title', :default => "Static "+model_class.model_name.human.pluralize %></h1>
+<table class="table table-striped">
+  <tbody>
+    <% @eventlogs.each do |eventlog| %>
+      <tr>
+	<td colspan="6"><pre><%= eventlog.inspect %></pre></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>

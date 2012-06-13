@@ -1,0 +1,108 @@
+Gatekeeper::Main:
+  Fortytwo: 42
+  TraceLevel: 3
+  StatusTraceLevel: 0
+  StatusPort: 7000
+  TimestampFormat: MySQL
+
+CommonSQL: &CommonSQL
+  Driver: PostgreSQL
+  Database: gnugk
+  Username: gnugk
+  Password: gnugk
+  MinPoolSize: 5
+
+AlternateGatekeepers::SQL:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_alternategatekeeperssql_query('%i', '%1', '%2')
+
+AssignedAliases::SQL:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_assignedaliasessql_query('%u')
+
+AssignedAliases::SQL:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_assignedgatekeeperssql_query('%u','%i','%1','%2')
+
+SQLAuth:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_gkqosmonitor_query('%g','%{ConfId}','%{session}','%{caller-ip}','%{caller-port}','%{caller-nat}','%{callee-ip}','%{callee-port}','%{avgdelay}','%{packetloss}','%{packetloss-percent}','%{avgjitter}','%{bandwidth}','%t')
+
+Routing::Sql:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_routingsql_query('%c','%p','%s','%r','%{Calling-Station-Id}','%i','%m','%{client-auth-id}')
+
+SQLAcct:
+  <<: *CommonSQL
+  AlertQuery: SELECT * FROM gnugk_sqlacct_alertquery( '%g', '%n', '%d', '%t', '%c', '%{cause-translated}', '%r', '%p', '%s', '%u', '%{gkip}', '%{CallId}', '%{ConfId}', '%{CallLink}', '%{setup-time}', '%{alerting-time}', '%{connect-time}', '%{disconnect-time}', '%{ring-time}', '%{caller-ip}', '%{caller-port}', '%{callee-ip}', '%{callee-port}', '%{src-info}', '%{dest-info}', '%{Calling-Station-Id}', '%{Called-Station-Id}', '%{Dialed-Number}', '%{caller-epid}', '%{callee-epid}', '%{call-attempts}', '%{last-cdr}', '%{media-oip}', '%{codec}', '%{bandwidth}', '%{client-auth-id}')
+  OffQuery: SELECT * FROM gnugk_sqlacct_offquery()
+  OnQuery: SELECT * FROM gnugk_sqlacct_onquery()
+  RegisterQuery: SELECT * FROM gnugk_sqlacct_registerquery( '%g', '%u', '%{endpoint-ip}', '%{endpoint-port}', '%{epid}', '%{aliases}')
+  StartQuery: SELECT * FROM gnugk_sqlacct_startquery( '%g', '%n', '%d', '%t', '%c', '%{cause-translated}', '%r', '%p', '%s', '%u', '%{gkip}', '%{CallId}', '%{ConfId}', '%{CallLink}', '%{setup-time}', '%{alerting-time}', '%{connect-time}', '%{disconnect-time}', '%{ring-time}', '%{caller-ip}', '%{caller-port}', '%{callee-ip}', '%{callee-port}', '%{src-info}', '%{dest-info}', '%{Calling-Station-Id}', '%{Called-Station-Id}', '%{Dialed-Number}', '%{caller-epid}', '%{callee-epid}', '%{call-attempts}', '%{last-cdr}', '%{media-oip}', '%{codec}', '%{bandwidth}', '%{client-auth-id}')
+  StopQuery: SELECT * FROM gnugk_sqlacct_stopquery( '%g', '%n', '%d', '%t', '%c', '%{cause-translated}', '%r', '%p', '%s', '%u', '%{gkip}', '%{CallId}', '%{ConfId}', '%{CallLink}', '%{setup-time}', '%{alerting-time}', '%{connect-time}', '%{disconnect-time}', '%{ring-time}', '%{caller-ip}', '%{caller-port}', '%{callee-ip}', '%{callee-port}', '%{src-info}', '%{dest-info}', '%{Calling-Station-Id}', '%{Called-Station-Id}', '%{Dialed-Number}', '%{caller-epid}', '%{callee-epid}', '%{call-attempts}', '%{last-cdr}', '%{media-oip}', '%{codec}', '%{bandwidth}', '%{client-auth-id}')
+  UnregisterQuery: SELECT * FROM gnugk_sqlacct_unregisterquery( '%g', '%u', '%{endpoint-ip}', '%{endpoint-port}', '%{epid}', '%{aliases}')
+  UpdateQuery: SELECT * FROM gnugk_sqlacct_updatequery( '%g', '%n', '%d', '%t', '%c', '%{cause-translated}', '%r', '%p', '%s', '%u', '%{gkip}', '%{CallId}', '%{ConfId}', '%{CallLink}', '%{setup-time}', '%{alerting-time}', '%{connect-time}', '%{disconnect-time}', '%{ring-time}', '%{caller-ip}', '%{caller-port}', '%{callee-ip}', '%{callee-port}', '%{src-info}', '%{dest-info}', '%{Calling-Station-Id}', '%{Called-Station-Id}', '%{Dialed-Number}', '%{caller-epid}', '%{callee-epid}', '%{call-attempts}', '%{last-cdr}', '%{media-oip}', '%{codec}', '%{bandwidth}', '%{client-auth-id}')
+
+SQLAliasAuth:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_sqlaliasauth_query('%1','%2')
+
+SQLAuth:
+  <<: *CommonSQL
+  CallQuery: SELECT * FROM gnugk_sqlauth_callquery('%g','%{gkip}','%u','%{callerip}','%{Calling-Station-Id}','%{Called-Station-Id}','%{Dialed-Number}','%{CallId}','%{bandwidth}','%{answer}','%{arq}')
+
+SQLAuth:
+  <<: *CommonSQL
+  NbQuery: SELECT * FROM gnugk_sqlauth_nbquery('%g','%{gkip}','%{nbid}','%{nbip}','%{Calling-Station-Id}','%{src-info}','%{Called-Station-Id}','%{dest-info}','%{bandwidth}')
+
+SQLAuth:
+  <<: *CommonSQL
+  RegQuery: SELECT * FROM gnugk_sqlauth_regquery('%g','%{gkip}','%u','%{callerip},%{alias})
+
+SQLConfig:
+  <<: *CommonSQL
+  AssignedAliasQuery: SELECT * FROM gnugk_sqlconfig_assignedaliasquery('%1')
+  ConfigQuery: SELECT * FROM gnugk_sqlconfig_configquery('%1')
+  GwPrefixesQuery: SELECT * FROM gnugk_sqlconfig_gwprefixesquery('%1')
+  NeighborsQuery: SELECT * FROM gnugk_sqlconfig_neighborsquery('%1')
+  PermanentEndpointsQuery: SELECT * FROM gnugk_sqlconfig_permanentendpointsquery('%1')
+  RewriteAliasQuery: SELECT * FROM gnugk_sqlconfig_rewritealiasquery('%1')
+  RewriteE164Query: SELECT * FROM gnugk_sqlconfig_rewritee164query('%1')
+
+SQLPasswordAuth:
+  <<: *CommonSQL
+  Query: SELECT * FROM gnugk_sqlpasswordauth_query('%1','%2')
+
+GkPresence::SQL:
+  <<: *CommonSQL
+  QueryList: SELECT * FROM gnugk_gkpresencesql_querylist('%1','%2')
+  QueryAdd: SELECT * FROM gnugk_gkpresencesql_queryadd('%i','%u','%a','%s','%d')
+  QueryDelete: SELECT * FROM gnugk_gkpresencesql_querydelete('%i')
+  QueryUpdate: SELECT * FROM gnugk_gkpresencesql_queryupdate('%i','%b')
+
+GkStatus::Auth:
+  rule: explicit
+  127.0.0.1: allow
+  default: forbid
+
+Gatekeeper::Acct:
+#  StatusAcct: required;start,stop,update,connect
+  SQLAcct: required;start,connect,stop,update,alert,register,unregister
+  default: fail;start
+
+#StatusAcct:
+#  StartEvent: CALL|Start|%{caller-ip}:%{caller-port}|%{callee-ip}:%{callee-port}|%{CallId}
+#  StopEvent: CALL|Stop|%{caller-ip}:%{caller-port}|%{callee-ip}:%{callee-port}|%{CallId}
+#  UpdateEvent: CALL|Update|%{caller-ip}:%{caller-port}|%{callee-ip}:%{callee-port}|%{CallId}
+#  AlertEvent: CALL|Alert|%{caller-ip}:%{caller-port}|%{callee-ip}:%{callee-port}|%{CallId}
+#  ConnectEvent: CALL|Connect|%{caller-ip}:%{caller-port}|%{callee-ip}:%{callee-port}|%{CallId}
+#  RegisterEvent: EP|Register|%{endpoint-ip}:%{endpoint-port}|%{aliases}
+#  UnregisterEvent: EP|Unregister|%{endpoint-ip}:%{endpoint-port}|%{aliases}
+#  TimestampFormat: MySQL
+
+GkStatus::Filtering:
+  Enable: 1
+  IncludeFilter: .+
+  ExcludeFilter: gatekeeper-monitoring-check
+  NewRCFOnly: 1
+

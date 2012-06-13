@@ -1,0 +1,30 @@
+<h1>New user</h1>
+
+<form id="new-user" name="user" class='form-horizontal'>
+  <div class="field">
+    <label for="username" class="control-label"> username:</label>
+    <input type="text" name="username" id="username" value="<%= username %>" class="text_field" />
+  </div>
+
+  <div class="field">
+    <label for="password" class="control-label"> password:</label>
+    <input type="text" name="password" id="password" value="<%= password %>" class="text_field" />
+  </div>
+
+  <div class="field">
+    <label for="firstname" class="control-label"> firstname:</label>
+    <input type="text" name="firstname" id="firstname" value="<%= firstname %>" class="text_field" />
+  </div>
+
+  <div class="field">
+    <label for="lastname" class="control-label"> lastname:</label>
+    <input type="text" name="lastname" id="lastname" value="<%= lastname %>" class="text_field" />
+  </div>
+
+  <div class="actions">
+    <input type="submit" value="Create User" class="btn btn-primary" />
+  </div>
+
+</form>
+
+<a href="#/index" class="btn">Back</a>

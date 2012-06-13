@@ -1,0 +1,2 @@
+module GnugkHelper
+end
