@@ -2,6 +2,9 @@
 .sass-cache
 *.sassc
 
+# Ignore all vim *.swp files
+*.swp
+
 # Ignore bundler config
 /.bundle
 
