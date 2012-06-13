@@ -2,3 +2,65 @@ gnugk-admin
 ===========
 
 GnuGK Admin
+
+## Install dependencies:
+
+NOTE: Chef-solo configuration recipes are underway to automate these steps.
+
+RVM is available here: http://beginrescueend.com/
+
+You can install it as follows:
+
+    $ bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+    $ source ~/.bash_profile
+
+Now, install Ruby 1.9.3 using RVM:
+
+    $ rvm install 1.9.3-p194
+
+If you are reading this README on github, clone the github-admin project locally:
+
+    $ git clone https://github.com/ianblenke/github-admin.git
+    $ cd github-admin/chef/
+
+If you do not trust the .rvmrc, you can always run the command in the .rvmrc yourself:
+
+    $ rvm use 1.9.3-p194@gnugk_vagrant --create
+
+Next, you need to install the bundler gem:
+
+    $ gem install bundler
+    $ rvm reload
+
+Ok, now that we have RVM and bundler installed, you can now easily install Vagrant and Veewee:
+
+    $ bundle install
+
+Next, we install PostgreSQL:
+
+    $ sudo apt-get install postgresql-client postgresql postgresql-plperl-8.4 libjson-perl
+
+Add plperlu to your template1 postgres database:
+
+    createlang plperlu template1
+    createuser -drs gnugk
+    createdb -O gnugk gnugk
+    echo "ALTER USER gnugk WITH PASSWORD 'gnugk';" | psql gnugk
+
+Now run the migration
+
+    $ bundle exec rake db:migrate
+
+Fire up the rails server using rackup and thin (gnugk-admin uses EventMachine and Faye):
+
+   $ bundle exec rackup -s thin -E production config.ru 
+
+Run gnugk with the debug trace follower
+
+    $ bundle exec script/debug_trace_follower.rb
+
+Run the gnugk statusport follower
+
+    $ script/statusport_follower.rb
+
+

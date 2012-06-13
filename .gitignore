@@ -11,6 +11,9 @@
 # Ignore .rspec
 .rspec
 
+# Ignore the frozen Gemfile.lock
+Gemfile.lock
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
