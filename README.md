@@ -62,7 +62,7 @@ Now run the migration
 
 Fire up the rails server using rackup and thin (gnugk-admin uses EventMachine and Faye):
 
-   $ bundle exec rackup -s thin -E production config.ru 
+    $ bundle exec rackup -s thin -E production config.ru 
 
 Run gnugk with the debug trace follower
 
