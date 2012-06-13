@@ -1,16 +1,44 @@
-*.rbc
-*.sassc
+# Ignore sass cache
 .sass-cache
-capybara-*.html
-.rspec
+*.sassc
+
+# Ignore bundler config
 /.bundle
+
+# Ignore bundler cache
 /vendor/bundle
-/log/*
-/tmp/*
+
+# Ignore .rspec
+.rspec
+
+# Ignore the default SQLite database.
 /db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+/spec/tmp/*
+
+# Silly symlinks you shouldn't need to worry about
+/gnugk
+/gnugk.ini
+
+# There are examples of these, don't include actual ones
+/config/config.yml
+/config/database.yml
+
+# Ignore large vagrant files and state
+/vagrant/iso/*
+/vagrant/*.box
+/vagrant/.vagrant
+
+# Ignore any chef nodes that are defined
+/chef/nodes/*
+
+# Other Rails files to ignore
+*.rbc
+capybara-*.html
 /public/system/*
 /coverage/
-/spec/tmp/*
 **.orig
 rerun.txt
-pickle-email-*.html
