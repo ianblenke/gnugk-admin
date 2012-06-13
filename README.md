@@ -1,0 +1,4 @@
+gnugk-admin
+===========
+
+GnuGK Admin
