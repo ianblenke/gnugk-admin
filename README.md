@@ -28,6 +28,7 @@ Next, install Ruby 1.9.3 using RVM:
 
 If you are reading this README on github, clone the github-admin project locally:
 
+    $ sudo apt-get install git-core
     $ git clone https://github.com/ianblenke/github-admin.git
     $ cd github-admin
 
