@@ -14,7 +14,15 @@ You can install it as follows:
     $ bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
     $ source ~/.bash_profile
 
-Now, install Ruby 1.9.3 using RVM:
+After that, check the rvm requirements:
+
+    $ rvm requirements
+
+For example, to install ruby 1.9.3 under Ubuntu Precise Pangolin, you will need to do something like this:
+
+    $ sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion patch
+
+Next, install Ruby 1.9.3 using RVM:
 
     $ rvm install 1.9.3-p194
 
