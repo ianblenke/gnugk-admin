@@ -58,6 +58,6 @@ module DebugTraceFollower
 end
 
 EM::run do
-  EM.popen("bash -c 'gnugk -c gnugk.ini 2>&1'", DebugTraceFollower)
+  EM.popen("bash -c 'gdb -ex run --args gnugk -c gnugk.ini 2>&1'", DebugTraceFollower)
 end
 
