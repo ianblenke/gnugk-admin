@@ -60,10 +60,13 @@ Next, we install PostgreSQL:
 
 Add plperlu to your template1 postgres database:
 
-    createlang plperlu template1
-    createuser -drs gnugk
-    createdb -O gnugk gnugk
-    echo "ALTER USER gnugk WITH PASSWORD 'gnugk';" | psql gnugk
+    $ sudo apt-get install postgresql-plperl-9.1
+    $ sudo su - postgres
+    postgres$ createlang plperlu template1
+    postgres$ createuser -drs gnugk
+    postgres$ createdb -O gnugk gnugk
+    postgres$ echo "ALTER USER gnugk WITH PASSWORD 'gnugk';" | psql gnugk
+    postgres$ exit
 
 Now run the migration
 
