@@ -28,10 +28,6 @@ Gemfile.lock
 /tmp
 /spec/tmp/*
 
-# Silly symlinks you shouldn't need to worry about
-/gnugk
-/gnugk.ini
-
 # There are examples of these, don't include actual ones
 /config/config.yml
 /config/database.yml
